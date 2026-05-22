@@ -17,7 +17,7 @@ const Footer = () => {
         const data = await response.json()
         setLogos(data)
         setLoading(false)
-      } catch (err) {
+      } catch {
         setError("Error loading logos")
         setLoading(false)
       }

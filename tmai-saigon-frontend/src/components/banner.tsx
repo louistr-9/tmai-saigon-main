@@ -20,7 +20,7 @@ const Banner: React.FC = () => {
         const data = await response.json()
         setImages(data)
         setLoading(false)
-      } catch (err) {
+      } catch {
         setError("Error loading images")
         setLoading(false)
       }

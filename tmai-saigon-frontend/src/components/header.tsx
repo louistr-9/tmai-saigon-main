@@ -1,5 +1,4 @@
 "use client"
-import logo from "../logo_tmaisaigon.ico"
 import Image from "next/image"
 import { useState } from "react"
 import Link from "next/link"

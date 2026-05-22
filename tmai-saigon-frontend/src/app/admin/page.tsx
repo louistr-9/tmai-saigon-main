@@ -3,8 +3,18 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+interface ContentItem {
+  _id: string;
+  category: string;
+  description?: string;
+  link?: string;
+  text?: string;
+  url?: string;
+  alt?: string;
+}
+
 const AdminPanel: React.FC = () => {
-  const [content, setContent] = useState([]);
+  const [content, setContent] = useState<ContentItem[]>([]);
   const [category, setCategory] = useState("banner");
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
@@ -25,12 +35,12 @@ const AdminPanel: React.FC = () => {
       if (!response.ok) throw new Error("Failed to fetch content");
       const data = await response.json();
       setContent(data);
-    } catch (err) {
+    } catch {
       setError("Error loading content");
     }
   };
 
-  useEffect(() => { fetchContent(); }, [category]);
+  useEffect(() => { fetchContent(); }, [category]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) setFile(e.target.files[0]);
@@ -65,12 +75,12 @@ const AdminPanel: React.FC = () => {
       if (!response.ok) throw new Error("Failed to save content");
       await fetchContent();
       setDescription(""); setLink(""); setText(""); setFile(null); setEditingId(null);
-    } catch (err) {
+    } catch {
       setError("Error saving content");
     }
   };
 
-  const handleEdit = (item: any) => {
+  const handleEdit = (item: ContentItem) => {
     setEditingId(item._id);
     setCategory(item.category);
     setDescription(item.description || "");
@@ -85,7 +95,7 @@ const AdminPanel: React.FC = () => {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/content/${id}`, { method: "DELETE" });
       if (!response.ok) throw new Error("Failed to delete content");
       await fetchContent();
-    } catch (err) {
+    } catch {
       setError("Error deleting content");
     }
   };
@@ -125,7 +135,7 @@ const AdminPanel: React.FC = () => {
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">{editingId ? "Cập nhật nội dung" : "Thêm nội dung"}</button>
       </form>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {content.map((item: any) => (
+        {content.map((item: ContentItem) => (
           <div key={item._id} className="border rounded p-4">
             {item.url && <Image src={item.url} alt={item.alt || "Nội dung"} width={300} height={200} className="w-full h-auto rounded" />}
             <p className="mt-2 text-sm">Danh mục: {item.category}</p>

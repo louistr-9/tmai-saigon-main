@@ -27,7 +27,7 @@ const Events = () => {
         setInternationalEvents(intData)
         setBusinessEvents(bizData)
         setLoading(false)
-      } catch (err) {
+      } catch {
         setError("Error loading events")
         setLoading(false)
       }

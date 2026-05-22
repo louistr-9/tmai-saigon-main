@@ -14,7 +14,7 @@ const Introduction: React.FC = () => {
         const data = await response.json();
         setContent(data[0] || { text: "" });
         setLoading(false);
-      } catch (err) {
+      } catch {
         setError("Error loading content");
         setLoading(false);
       }

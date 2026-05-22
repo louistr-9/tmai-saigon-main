@@ -31,7 +31,7 @@ const Products = () => {
         setBookProducts(bookData)
         setWebProducts(webData)
         setLoading(false)
-      } catch (err) {
+      } catch {
         setError("Error loading products")
         setLoading(false)
       }

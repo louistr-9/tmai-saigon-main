@@ -30,7 +30,7 @@ const Activities: React.FC = () => {
         setDomesticImages(domData)
         setInternationalImages(intData)
         setLoading(false)
-      } catch (err) {
+      } catch {
         setError("Error loading activities")
         setLoading(false)
       }

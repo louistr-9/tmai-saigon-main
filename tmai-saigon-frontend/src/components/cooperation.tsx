@@ -16,7 +16,7 @@ const Cooperation = () => {
         const data = await response.json()
         setBrands(data)
         setLoading(false)
-      } catch (err) {
+      } catch {
         setError("Error loading brands")
         setLoading(false)
       }
